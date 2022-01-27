@@ -1,5 +1,5 @@
 import os
-os.chdir(r"C:/Users/DEMEGUE/Documents/04_Deployment_Flask/Layout-Dashboard")
+#os.chdir(r"C:/Users/DEMEGUE/Documents/04_Deployment_Flask/Layout-Dashboard")
 
 import dash
 from datetime import datetime as dt
