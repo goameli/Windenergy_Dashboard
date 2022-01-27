@@ -1,8 +1,10 @@
 # Setup
 
 1. Install required packages.
+
 `pip install -r requirements.txt`
 2. Start dashboard using by Flask+Dash.
+
 `python app.py`
 
 Dashboard will be hosted and running on http://127.0.0.1:8050/
