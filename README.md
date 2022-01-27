@@ -1,6 +1,6 @@
 # Windenergy Dashboard
 
 1. Install required packages.
-'install requirement.txt'
+`install requirement.txt`
 3. Start dashboard.
-'python app.py'
+`python app.py`
