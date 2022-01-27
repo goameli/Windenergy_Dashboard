@@ -3,6 +3,7 @@
 1. Install required packages.
 
 `pip install -r requirements.txt`
+
 2. Start dashboard using by Flask+Dash.
 
 `python app.py`
