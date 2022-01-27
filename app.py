@@ -1,5 +1,4 @@
 import os
-#os.chdir(r"C:/Users/DEMEGUE/Documents/04_Deployment_Flask/Layout-Dashboard")
 
 import dash
 from datetime import datetime as dt
@@ -67,8 +66,8 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP],meta_tags=
                             'content': 'width=device-width, initial-scale=1.0'}])
 
 
-#####Frontend Elements#####
-###########################
+#####Dashboard Frontend Elements#####
+#####################################
 
 card = dbc.Card(
                 dbc.CardBody(
@@ -120,8 +119,8 @@ input_box = dcc.Input(
 )
 
 
-#####FIGURES#####
-#################
+#####Dashboard Figures#####
+###########################
 
 fig_scatter = go.Figure([
     go.Scatter(
@@ -166,7 +165,6 @@ fig_scatter.update_layout(
     )
 )
 
-
 fig_windrose = fig = px.bar_polar(df_wind_rose, r="frequency", theta="direction",
                    color="strength", template="plotly_dark",
                    color_discrete_sequence= px.colors.sequential.Plasma_r)
@@ -183,7 +181,6 @@ drop_down_correlation1 = dcc.Dropdown(
         style={"width":"55%"}
     )
 
-
 drop_down_correlation2 = dcc.Dropdown(
         id='feature_list_correlation2',
         placeholder="Select a Feature",
@@ -193,10 +190,7 @@ drop_down_correlation2 = dcc.Dropdown(
         style={"width":"55%"}
     )
 
-
 fig_correlation = go.Figure([go.Scatter(x=df["ActivePower"], y=df["WindSpeed"], mode='lines+markers', marker = {'color' : '#d90000'})])
-
-#fig_monthly = px.bar(df_monthly, x="month", y="ActivePower", barmode="group")
 
 fig_monthly = go.Figure([
     go.Bar(
@@ -204,53 +198,8 @@ fig_monthly = go.Figure([
         y=df_monthly["ActivePower"])
 ])
 
-
-"""predictive_fig = go.Figure()
-
-predictive_fig.update_layout(
-    title_text="Overview of Real/Predicted Power"
-)
-
-# Add traces
-predictive_fig.add_trace(go.Scatter(x=selected_df.index, y=selected_df['ActivePower'],
-                    mode='markers',
-                    name='Real'))
-predictive_fig.add_trace(go.Scatter(x=selected_df.index, y=cutted_predicted_df["ActivePower_t6"],
-                    mode='lines+markers',
-                    name='Predicted'))
-
-predictive_fig.update_layout(
-    xaxis=dict(
-        rangeselector=dict(
-            buttons=list([
-                dict(count=1,
-                     label="1m",
-                     step="month",
-                     stepmode="backward"),
-                dict(count=6,
-                     label="6m",
-                     step="month",
-                     stepmode="backward"),
-                dict(count=1,
-                     label="YTD",
-                     step="year",
-                     stepmode="todate"),
-                dict(count=1,
-                     label="1y",
-                     step="year",
-                     stepmode="backward"),
-                dict(step="all")
-            ])
-        ),
-        rangeslider=dict(
-            visible=True
-        ),
-        type="date"
-    )
-)"""
-
-
 ######LAYOUT#####
+# UI-Structure with html
 #################
 
 app.layout = dbc.Container([
@@ -484,26 +433,6 @@ def update_gauge(start_date, end_date, selected_feature):
     return updated_fig_average
 
 
-'''@app.callback(
-    dash.dependencies.Output('scatter_correlation', 'figure'),
-    [dash.dependencies.Input('date-picker-range', 'start_date'),
-    dash.dependencies.Input('date-picker-range', 'end_date'),
-    dash.dependencies.Input('feature_list', 'value')])
-def update_gauge(start_date, end_date, selected_feature):
-    analysis_start_date = start_date + " " + "00:00:00" + "+00:00"
-    analysis_end_date = end_date + " " + "00:00:00" + "+00:00"
-    dff = df[analysis_start_date:analysis_end_date]
-
-    updated_fig_correlation = go.Figure([go.Scatter(x=dff["WindSpeed"], y=dff["ActivePower"], mode='lines+markers', marker = {'color' : '#d90000'})])
-    
-    updated_fig_correlation.update_layout(
-    title_text="[ActivePower - WindSpeed] ",
-    xaxis_title = "WindSpeed[m/s]",
-    yaxis_title = "ActivePower[kW]"
-    )
-    return updated_fig_correlation'''
-
-
 @app.callback(
     dash.dependencies.Output('scatter_correlation', 'figure'),
     [dash.dependencies.Input('date-picker-range', 'start_date'),
@@ -588,51 +517,6 @@ def predictive_update(start_date, end_date):
         )
     )
     return predictive_fig
-
-
-'''@app.callback(
-    dash.dependencies.Output('plotly_scatter_graph', 'figure'),
-    [dash.dependencies.Input('feature_list', 'value')]
-)
-def change_visualization_reg_feature(selected_feature):
-    #df = pd.read_csv("data/Turbine_Data.csv")
-    updated_fig = go.Figure([go.Scatter(x=df.index, y=df[selected_feature])])
-
-    updated_fig.update_layout(
-    title_text="Overview for Data-Time Range",
-    )
-
-    updated_fig.update_layout(
-    xaxis=dict(
-        rangeselector=dict(
-            buttons=list([
-                dict(count=1,
-                     label="1m",
-                     step="month",
-                     stepmode="backward"),
-                dict(count=6,
-                     label="6m",
-                     step="month",
-                     stepmode="backward"),
-                dict(count=1,
-                     label="YTD",
-                     step="year",
-                     stepmode="todate"),
-                dict(count=1,
-                     label="1y",
-                     step="year",
-                     stepmode="backward"),
-                dict(step="all")
-            ])
-        ),
-        rangeslider=dict(
-            visible=True
-        ),
-        type="date"
-    )
-)
-
-    return updated_fig'''
 
 
 if __name__ == '__main__':
