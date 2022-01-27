@@ -2,5 +2,5 @@
 
 1. Install required packages.
 `install requirement.txt`
-3. Start dashboard.
+2. Start dashboard.
 `python app.py`
